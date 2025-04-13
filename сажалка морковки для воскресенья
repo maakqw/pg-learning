@@ -5,6 +5,7 @@ run = 1
 x = 100
 y = 100
 car = 5
+money = 0
 planted1 = 0
 planted2 = 0
 planted3 = 0
@@ -26,9 +27,10 @@ car3count = 0
 car4count = 0
 car5count = 0
 count = 0
+sellcount = 0
 while run:
     count += 1
-
+    sellcount += 1
     if car1count == 360:
         car1count = 0
         car += 3
@@ -102,6 +104,12 @@ while run:
             car -= 1
             planted5=1
             count = 0
+    if keys[pg.K_v] and sellcount > 10:
+        if car > 1:
+            money += 5
+            car-=1
+            sellcount = 0
+
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = 0
