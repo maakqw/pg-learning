@@ -28,30 +28,68 @@ car4count = 0
 car5count = 0
 count = 0
 sellcount = 0
+size1 = 10
+size2 = 10
+size3 = 10
+size4 = 10
+size5 = 10 
 while run:
+    keys = pg.key.get_pressed()
     count += 1
     sellcount += 1
-    if car1count == 360:
+    if keys[pg.K_r] and car1count >= 360:
         car1count = 0
         car += 3
         planted1 = 0
         car1count = 0
-    if car2count == 360:
+    if keys[pg.K_r] and car2count >= 360:
         car += 3
         planted2 = 0
         car2count = 0
-    if car3count == 360:
+    if keys[pg.K_r] and car3count >= 360:
         car += 3
         planted3 = 0
         car3count = 0
-    if car4count == 360:
+    if keys[pg.K_r] and car4count >= 360:
         car += 3
         planted4 = 0
         car4count = 0
-    if car5count == 360:
+    if keys[pg.K_r] and car5count >= 360:
         car += 3
         planted5 = 0
         car5count = 0
+        
+    if car1count == 360 and planted1:
+        size1 = 20
+        x1 -= 5
+        y1 -= 5
+    elif car1count < 360:
+        size1 = 10
+    if car2count == 360 and planted2:
+        size2 = 20
+        x2 -= 5
+        y2 -= 5
+    elif car2count < 360:
+        size2 = 10
+    if car3count == 360 and planted3:
+        size3 = 20
+        x3 -= 5
+        y3 -= 5
+    elif car3count < 360:
+        size3 = 10
+    if car4count == 360 and planted4:
+        size4 = 20
+        x4 -= 5
+        y4 -= 5
+    elif car4count < 360:
+        size4 = 10
+    if car5count == 360 and planted5:
+        size5 = 20
+        x5 -= 5
+        y5 -= 5
+    elif car5count < 360:
+        size5 = 10
+        
 
     clock.tick(60)
     if planted1:
@@ -64,7 +102,7 @@ while run:
         car4count+=1
     if planted5:
         car5count+=1
-    keys = pg.key.get_pressed()
+
     if keys[pg.K_w] and y > 0:
         y -= 1
     if keys[pg.K_s] and y < 480:
@@ -75,32 +113,32 @@ while run:
         x += 1
     if keys[pg.K_p] and car >0 and count > 120:
         if not planted1:
-            x1 = x
-            y1 = y
+            x1 = x + 5
+            y1 = y + 5
             car -= 1
             planted1=1
             count = 0
         elif not planted2:
-            x2 = x
-            y2 = y
+            x2 = x + 5
+            y2 = y + 5
             car -= 1
             planted2=1
             count = 0
         elif not planted3:
-            x3 = x
-            y3 = y
+            x3 = x + 5
+            y3 = y + 5
             car -= 1
             planted3=1
             count = 0
         elif not planted4:
-            x4 = x
-            y4 = y
+            x4 = x + 5
+            y4 = y + 5
             car -= 1
             planted4=1
             count = 0
         elif not planted5:
-            x5 = x
-            y5 = y
+            x5 = x + 5
+            y5 = y + 5
             car -= 1
             planted5=1
             count = 0
@@ -119,19 +157,19 @@ while run:
     screen.fill((0,0,0))
     if planted1:
 
-        pg.draw.rect(screen,(232, 146, 32), (x1,y1,10,10))
+        pg.draw.rect(screen,(232, 146, 32), (x1,y1,size1,size1))
     if planted2:
 
-        pg.draw.rect(screen,(232, 146, 32), (x2,y2,10,10))
+        pg.draw.rect(screen,(232, 146, 32), (x2,y2,size2,size2))
     if planted3:
 
-        pg.draw.rect(screen,(232, 146, 32), (x3,y3,10,10))
+        pg.draw.rect(screen,(232, 146, 32), (x3,y3,size3,size3))
     if planted4:
 
-        pg.draw.rect(screen,(232, 146, 32), (x4,y4,10,10))
+        pg.draw.rect(screen,(232, 146, 32), (x4,y4,size4,size4))
     if planted5:
 
-        pg.draw.rect(screen,(232, 146, 32), (x5,y5,10,10))
+        pg.draw.rect(screen,(232, 146, 32), (x5,y5,size5,size5))
     pg.draw.rect(screen,(255,0,0), (x,y,20,20))
     pg.display.flip()
     print(car)
