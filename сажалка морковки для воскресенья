@@ -1,176 +1,134 @@
+x_global = 100
+y_global = 100
+
+class Carrot:
+    def __init__(self):
+        self.planted = 0
+        self.x = x_global
+        self.y = y_global
+        self.count = 0
+        self.size = 10
+        self.count = 0
+
+    def update(self):
+        if self.count < 360:
+            self.size = 10
+        if self.count == 360 and self.planted:
+            self.size = 20
+            self.x -= 5
+            self.y -= 5
+        if self.planted:
+            self.count += 1
+
+            pg.draw.rect(screen, (232, 146, 32), (self.x, self.y, self.size, self.size))
+
+
 import pygame as pg
-screen = pg.display.set_mode((500,500))
+
+screen = pg.display.set_mode((500, 500))
 clock = pg.time.Clock()
 run = 1
-x = 100
-y = 100
 car = 5
 money = 0
-planted1 = 0
-planted2 = 0
-planted3 = 0
-planted4 = 0
-planted5 = 0
-x1 = x
-y1 = y
-x2 = x
-y2 = y
-x3 = x
-y3 = y
-x4 = x
-y4 = y
-x5 = x
-y5 = y
-car1count = 0
-car2count = 0
-car3count = 0
-car4count = 0
-car5count = 0
+car1 = Carrot()
+car2 = Carrot()
+car3 = Carrot()
+car4 = Carrot()
+car5 = Carrot()
 count = 0
-sellcount = 0
-size1 = 10
-size2 = 10
-size3 = 10
-size4 = 10
-size5 = 10 
+sell_count = 0
 while run:
     keys = pg.key.get_pressed()
     count += 1
-    sellcount += 1
-    if keys[pg.K_r] and car1count >= 360:
-        car1count = 0
+    sell_count += 1
+    if keys[pg.K_r] and car1.count >= 360:
+        car1.count = 0
         car += 3
-        planted1 = 0
-        car1count = 0
-    if keys[pg.K_r] and car2count >= 360:
+        car1.planted = 0
+        count = 0
+    if keys[pg.K_r] and car2.count >= 360:
         car += 3
-        planted2 = 0
-        car2count = 0
-    if keys[pg.K_r] and car3count >= 360:
+        car2.planted = 0
+        car2.count = 0
+        count = 0
+    if keys[pg.K_r] and car3.count >= 360:
         car += 3
-        planted3 = 0
-        car3count = 0
-    if keys[pg.K_r] and car4count >= 360:
+        car3.planted = 0
+        car3.count = 0
+        count = 0
+    if keys[pg.K_r] and car4.count >= 360:
         car += 3
-        planted4 = 0
-        car4count = 0
-    if keys[pg.K_r] and car5count >= 360:
+        car4.planted = 0
+        car4.count = 0
+        count = 0
+    if keys[pg.K_r] and car5.count >= 360:
         car += 3
-        planted5 = 0
-        car5count = 0
-        
-    if car1count == 360 and planted1:
-        size1 = 20
-        x1 -= 5
-        y1 -= 5
-    elif car1count < 360:
-        size1 = 10
-    if car2count == 360 and planted2:
-        size2 = 20
-        x2 -= 5
-        y2 -= 5
-    elif car2count < 360:
-        size2 = 10
-    if car3count == 360 and planted3:
-        size3 = 20
-        x3 -= 5
-        y3 -= 5
-    elif car3count < 360:
-        size3 = 10
-    if car4count == 360 and planted4:
-        size4 = 20
-        x4 -= 5
-        y4 -= 5
-    elif car4count < 360:
-        size4 = 10
-    if car5count == 360 and planted5:
-        size5 = 20
-        x5 -= 5
-        y5 -= 5
-    elif car5count < 360:
-        size5 = 10
-        
+        car5.planted = 0
+        car5.count = 0
+        count = 0
+
+
+
 
     clock.tick(60)
-    if planted1:
-        car1count+=1
-    if planted2:
-        car2count+=1
-    if planted3:
-        car3count+=1
-    if planted4:
-        car4count+=1
-    if planted5:
-        car5count+=1
 
-    if keys[pg.K_w] and y > 0:
-        y -= 1
-    if keys[pg.K_s] and y < 480:
-        y += 1
-    if keys[pg.K_a] and x > 0:
-        x -= 1
-    if keys[pg.K_d] and x < 480:
-        x += 1
-    if keys[pg.K_p] and car >0 and count > 120:
-        if not planted1:
-            x1 = x + 5
-            y1 = y + 5
+
+    if keys[pg.K_w] and y_global > 0:
+        y_global -= 1
+    if keys[pg.K_s] and y_global < 480:
+        y_global += 1
+    if keys[pg.K_a] and x_global > 0:
+        x_global -= 1
+    if keys[pg.K_d] and x_global < 480:
+        x_global += 1
+    if keys[pg.K_p] and car > 0 and count > 120:
+        if not car1.planted:
+            car1.x = x_global + 5
+            car1.y = y_global + 5
             car -= 1
-            planted1=1
+            car1.planted = 1
             count = 0
-        elif not planted2:
-            x2 = x + 5
-            y2 = y + 5
+        elif not car2.planted:
+            car2.x = x_global + 5
+            car2.y = y_global + 5
             car -= 1
-            planted2=1
+            car2.planted = 1
             count = 0
-        elif not planted3:
-            x3 = x + 5
-            y3 = y + 5
+        elif not car3.planted:
+            car3.x = x_global + 5
+            car3.y = y_global + 5
             car -= 1
-            planted3=1
+            car3.planted = 1
             count = 0
-        elif not planted4:
-            x4 = x + 5
-            y4 = y + 5
+        elif not car4.planted:
+            car4.x = x_global + 5
+            car4.y = y_global + 5
             car -= 1
-            planted4=1
+            car4.planted = 1
             count = 0
-        elif not planted5:
-            x5 = x + 5
-            y5 = y + 5
+        elif not car5.planted:
+            car5.x = x_global + 5
+            car5.y = y_global + 5
             car -= 1
-            planted5=1
+            car5.planted = 1
             count = 0
-    if keys[pg.K_v] and sellcount > 10:
+    if keys[pg.K_v] and sell_count > 10:
         if car > 1:
             money += 5
-            car-=1
-            sellcount = 0
+            car -= 1
+            sell_count = 0
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = 0
 
-
-
-    screen.fill((0,0,0))
-    if planted1:
-
-        pg.draw.rect(screen,(232, 146, 32), (x1,y1,size1,size1))
-    if planted2:
-
-        pg.draw.rect(screen,(232, 146, 32), (x2,y2,size2,size2))
-    if planted3:
-
-        pg.draw.rect(screen,(232, 146, 32), (x3,y3,size3,size3))
-    if planted4:
-
-        pg.draw.rect(screen,(232, 146, 32), (x4,y4,size4,size4))
-    if planted5:
-
-        pg.draw.rect(screen,(232, 146, 32), (x5,y5,size5,size5))
-    pg.draw.rect(screen,(255,0,0), (x,y,20,20))
+    screen.fill((0, 0, 0))
+    car1.update()
+    car2.update()
+    car3.update()
+    car4.update()
+    car5.update()
+    pg.draw.rect(screen, (255, 0, 0), (x_global, y_global, 20, 20))
     pg.display.flip()
     print(car)
 
