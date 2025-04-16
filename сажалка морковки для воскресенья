@@ -69,6 +69,26 @@ while run:
 
 
 
+    if keys[pg.K_q]:
+        if car1.planted and car1.size == 10:
+            car1.planted = 0
+            car += 1
+        if car2.planted and car2.size == 10:
+            car2.planted = 0
+            car += 1
+        if car3.planted and car3.size == 10:
+            car3.planted = 0
+            car += 1
+        if car4.planted and car4.size == 10:
+            car4.planted = 0
+            car += 1
+        if car5.planted and car5.size == 10:
+            car5.planted = 0
+            car += 1
+
+
+
+
 
     clock.tick(60)
 
