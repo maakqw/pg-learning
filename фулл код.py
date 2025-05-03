@@ -40,10 +40,14 @@ money = 0
 carrot = 5
 bg = pg.image.load("bg.png")
 bg = pg.transform.scale(bg,(1920,1080))
-spritel = pg.image.load("sprite.png")
+spritel = pg.image.load("spritel.png")
+spritel2 = pg.image.load("spritel2.png")
 spriter = pg.image.load("spriter.png")
+spriter2 = pg.image.load("spriter2.png")
 spritel = pg.transform.scale(spritel, (150,150))
+spritel2 = pg.transform.scale(spritel2, (150,150))
 spriter = pg.transform.scale(spriter, (150,150))
+spriter2 = pg.transform.scale(spriter2, (150,150))
 sprite = spritel
 rabbit = pg.image.load("rabbit.png")
 rabbit = pg.transform.scale(rabbit, (100,100))
@@ -59,6 +63,10 @@ count = 0
 need_count = 0
 need = 0
 car_need = 0
+move = 0
+animationl_count = 0
+animationr_count = 0
+direction = 'r'
 x_global = 960
 y_global = 540
 car1 = Carrot()
@@ -76,14 +84,45 @@ while run:
 
     if keys[pg.K_w]:
         y_global-= 3
+        move = 1
     if keys[pg.K_s]:
         y_global += 3
+        move = 1
     if keys[pg.K_a]:
-        sprite = spritel
+        direction = 'l'
         x_global-= 3
+        move = 1
     if keys[pg.K_d]:
-        sprite = spriter
+        direction = 'r'
         x_global+= 3
+        move = 1
+    if not (keys[pg.K_w] or keys[pg.K_s] or keys[pg.K_a] or keys[pg.K_d]):
+        move = 0
+        print('a')
+
+    if direction == 'r':
+        if animationr_count == 0:
+            sprite = spriter
+        elif animationr_count == 5:
+            sprite = spriter2
+        elif animationr_count == 10:
+            animationr_count = -1
+        if move:
+            animationr_count += 1
+        else:
+            sprite = spriter
+    if direction == 'l':
+        if animationl_count == 0:
+            sprite = spritel
+        elif animationl_count == 5:
+            sprite = spritel2
+        elif animationl_count == 10:
+            animationl_count = -1
+        if move:
+            animationl_count += 1
+        else:
+            sprite = spritel
+
     if keys[pg.K_p] and carrot > 0 and count > 45:
         if x_global > 108 and x_global<573 and y_global >153 and y_global<321:
             if not car1.planted:
@@ -110,7 +149,7 @@ while run:
             elif not car4.planted:
                 car4.img = car1i
                 car4.x = x_global + 40
-                car4.y = y_globaldw + 40
+                car4.y = y_global + 40
                 carrot -= 1
                 car4.planted = 1
                 count = 0
